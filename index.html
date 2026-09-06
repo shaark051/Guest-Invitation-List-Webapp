@@ -18,7 +18,10 @@
 
   <header class="ledger-header">
     <div class="header-inner">
-      <h1 class="title">Guest Ledger</h1>
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <h1 class="title">Guest Ledger</h1>
+      </div>
       <input
         id="event-name"
         class="event-name-input"
@@ -32,104 +35,129 @@
     </div>
   </header>
 
-  <main class="page">
+  <main class="desk">
+    <div class="page-sheet">
 
-    <section class="tally" aria-label="Guest summary">
-      <div class="tally-item">
-        <span class="tally-number" id="tally-total">0</span>
-        <span class="tally-label">on the list</span>
-      </div>
-      <div class="tally-item">
-        <span class="tally-number" id="tally-invited">0</span>
-        <span class="tally-label">invited</span>
-      </div>
-      <div class="tally-item tally-accepted">
-        <span class="tally-number" id="tally-accepted">0</span>
-        <span class="tally-label">accepted</span>
-      </div>
-      <div class="tally-item tally-declined">
-        <span class="tally-number" id="tally-declined">0</span>
-        <span class="tally-label">declined</span>
-      </div>
-      <div class="tally-item tally-awaiting">
-        <span class="tally-number" id="tally-awaiting">0</span>
-        <span class="tally-label">awaiting reply</span>
-      </div>
-    </section>
+      <section id="error-banner" class="error-banner" hidden></section>
 
-    <section id="seed-banner" class="seed-banner" hidden>
-      <p>This ledger is empty. Load the 57 guests from your original spreadsheet to get started, or add people one at a time below.</p>
-      <button id="seed-btn" class="btn btn-primary" type="button">Load starter list</button>
-    </section>
+      <!-- Shown only when the guest list has zero entries -->
+      <section id="empty-ledger" class="empty-ledger" hidden>
+        <div class="empty-icon" aria-hidden="true">
+          <svg viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M32 16c-6.5-5-15-6-24-4v34c9-2 17.5-1 24 4 6.5-5 15-6 24-4V12c-9-2-17.5-1-24 4z"/>
+            <path d="M32 16v34"/>
+          </svg>
+        </div>
+        <h2>Your ledger is empty</h2>
+        <p>Start with the guests from your original spreadsheet, or add people one at a time.</p>
+        <div class="empty-actions">
+          <button id="empty-load-btn" class="btn btn-primary" type="button">Load starter list · 57 guests</button>
+          <button id="empty-manual-btn" class="btn btn-ghost" type="button">Add a guest manually</button>
+        </div>
+      </section>
 
-    <section id="error-banner" class="error-banner" hidden></section>
+      <!-- Everything below is hidden while the ledger is empty -->
+      <div id="ledger-content" hidden>
 
-    <section class="toolbar">
-      <input
-        id="search-input"
-        class="search-input"
-        type="search"
-        placeholder="Search guests…"
-        autocomplete="off"
-      />
-      <select id="house-filter" class="filter-select" aria-label="Filter by house">
-        <option value="all">All houses</option>
-      </select>
-      <select id="status-filter" class="filter-select" aria-label="Filter by RSVP status">
-        <option value="all">All statuses</option>
-        <option value="Accepted">Accepted</option>
-        <option value="Declined">Declined</option>
-        <option value="Awaiting response">Awaiting response</option>
-        <option value="none">No response yet</option>
-      </select>
-    </section>
+        <section class="tally" aria-label="Guest summary">
+          <div class="tally-item">
+            <span class="tally-number" id="tally-total">0</span>
+            <span class="tally-label">on the list</span>
+          </div>
+          <div class="tally-item">
+            <span class="tally-number" id="tally-invited">0</span>
+            <span class="tally-label">invited</span>
+          </div>
+          <div class="tally-item tally-accepted">
+            <span class="tally-number" id="tally-accepted">0</span>
+            <span class="tally-label">accepted</span>
+          </div>
+          <div class="tally-item tally-declined">
+            <span class="tally-number" id="tally-declined">0</span>
+            <span class="tally-label">declined</span>
+          </div>
+          <div class="tally-item tally-awaiting">
+            <span class="tally-number" id="tally-awaiting">0</span>
+            <span class="tally-label">awaiting reply</span>
+          </div>
+        </section>
 
-    <div class="table-scroll">
-      <table class="ledger-table">
-        <thead>
-          <tr>
-            <th class="col-no">No.</th>
-            <th class="col-name">Name</th>
-            <th class="col-house">House</th>
-            <th class="col-contact">Contact</th>
-            <th class="col-invited">Invited</th>
-            <th class="col-status">Status</th>
-            <th class="col-notes">Notes</th>
-            <th class="col-actions"></th>
-          </tr>
-        </thead>
-        <tbody id="guest-rows">
-          <!-- rows rendered by app.js -->
-        </tbody>
-        <tfoot>
-          <tr id="add-row">
-            <td class="col-no">
-              <span id="next-no">—</span>
-            </td>
-            <td class="col-name">
-              <input id="new-name" class="cell-input" type="text" placeholder="Add a guest…" autocomplete="off" />
-            </td>
-            <td class="col-house">
-              <input id="new-house" class="cell-input house-input" type="text" placeholder="House" autocomplete="off" />
-            </td>
-            <td class="col-contact">
-              <input id="new-contact" class="cell-input mono-input" type="text" placeholder="Number" autocomplete="off" />
-            </td>
-            <td class="col-invited"></td>
-            <td class="col-status"></td>
-            <td class="col-notes">
-              <input id="new-notes" class="cell-input" type="text" placeholder="Note" autocomplete="off" />
-            </td>
-            <td class="col-actions">
-              <button id="add-btn" class="btn btn-add" type="button" title="Add guest">Add</button>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+        <section class="toolbar">
+          <input
+            id="search-input"
+            class="search-input"
+            type="search"
+            placeholder="Search guests…"
+            autocomplete="off"
+          />
+          <select id="house-filter" class="filter-select" aria-label="Filter by house">
+            <option value="all">All houses</option>
+          </select>
+          <select id="status-filter" class="filter-select" aria-label="Filter by RSVP status">
+            <option value="all">All statuses</option>
+            <option value="Accepted">Accepted</option>
+            <option value="Declined">Declined</option>
+            <option value="Awaiting response">Awaiting response</option>
+            <option value="none">No response yet</option>
+          </select>
+          <button id="toolbar-add-btn" class="btn btn-primary btn-icon" type="button">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add guest
+          </button>
+        </section>
+
+        <div class="table-scroll">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th class="col-no">No.</th>
+                <th class="col-name">Name</th>
+                <th class="col-house">House</th>
+                <th class="col-contact">Contact</th>
+                <th class="col-invited">Invited</th>
+                <th class="col-status">Status</th>
+                <th class="col-notes">Notes</th>
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+            <tbody id="guest-rows">
+              <!-- rows rendered by app.js -->
+            </tbody>
+            <tfoot>
+              <tr id="add-row">
+                <td class="col-no">
+                  <span id="next-no">—</span>
+                </td>
+                <td class="col-name">
+                  <input id="new-name" class="cell-input" type="text" placeholder="Add a guest…" autocomplete="off" />
+                </td>
+                <td class="col-house">
+                  <input id="new-house" class="cell-input house-input" type="text" placeholder="House" autocomplete="off" />
+                </td>
+                <td class="col-contact">
+                  <input id="new-contact" class="cell-input mono-input" type="text" placeholder="Number" autocomplete="off" />
+                </td>
+                <td class="col-invited"></td>
+                <td class="col-status"></td>
+                <td class="col-notes">
+                  <input id="new-notes" class="cell-input" type="text" placeholder="Note" autocomplete="off" />
+                </td>
+                <td class="col-actions">
+                  <button id="add-btn" class="btn btn-add btn-icon" type="button" title="Add guest">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Add
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <p id="empty-state" class="empty-state" hidden>No entries match — try adjusting the search or filters.</p>
+
+      </div>
+
     </div>
-
-    <p id="empty-state" class="empty-state" hidden>No entries match — try adjusting the search or filters.</p>
-
   </main>
 
   <footer class="page-footer">

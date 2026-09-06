@@ -21,8 +21,11 @@ import { GUESTS_SEED } from "./guests-seed.js";
 // ── DOM refs ────────────────────────────────────────────────────────────
 const rowsBody = document.getElementById("guest-rows");
 const emptyState = document.getElementById("empty-state");
-const seedBanner = document.getElementById("seed-banner");
-const seedBtn = document.getElementById("seed-btn");
+const emptyLedger = document.getElementById("empty-ledger");
+const emptyLoadBtn = document.getElementById("empty-load-btn");
+const emptyManualBtn = document.getElementById("empty-manual-btn");
+const ledgerContent = document.getElementById("ledger-content");
+const toolbarAddBtn = document.getElementById("toolbar-add-btn");
 const errorBanner = document.getElementById("error-banner");
 const syncIndicator = document.getElementById("sync-indicator");
 const eventNameInput = document.getElementById("event-name");
@@ -50,6 +53,8 @@ const tallyEls = {
 let guests = []; // live snapshot from Firestore, each: {id, no, name, house, contact, invited, status, notes}
 let filters = { search: "", house: "all", status: "all" };
 let lastChangedId = null; // used to flash a row after an edit round-trips
+let manualEntryMode = false; // true once someone chooses "Add a guest manually" from the empty state
+let wasEmpty = true; // tracks the last shown state, so the reveal animation only plays once
 
 const guestsCol = collection(db, "guests");
 const eventDocRef = doc(db, "meta", "event");
@@ -112,10 +117,22 @@ function showError(message) {
 
 // ── Rendering ───────────────────────────────────────────────────────────
 function renderAll() {
+  const showEmpty = guests.length === 0 && !manualEntryMode;
+
+  if (wasEmpty && !showEmpty) {
+    ledgerContent.classList.add("reveal");
+    setTimeout(() => ledgerContent.classList.remove("reveal"), 500);
+  }
+  wasEmpty = showEmpty;
+
+  emptyLedger.hidden = !showEmpty;
+  ledgerContent.hidden = showEmpty;
+
+  if (showEmpty) return; // nothing else to render while the hero is showing
+
   renderTally();
   renderHouseFilterOptions();
   renderRows();
-  seedBanner.hidden = guests.length !== 0;
   nextNoLabel.textContent = nextNo();
 }
 
@@ -203,7 +220,11 @@ function buildRow(g) {
       </select>
     </td>
     <td><input class="cell-input notes-input" data-field="notes" value="${escapeAttr(g.notes)}" placeholder="Add a note" /></td>
-    <td class="col-actions"><button class="delete-btn" title="Remove guest">✕</button></td>
+    <td class="col-actions">
+      <button class="delete-btn" title="Remove guest">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
+      </button>
+    </td>
   `;
 
   // text fields save on blur (avoids a write per keystroke)
@@ -322,10 +343,10 @@ eventNameInput.addEventListener("keydown", (e) => {
 });
 
 // ── One-time starter import ─────────────────────────────────────────────
-seedBtn.addEventListener("click", async () => {
+emptyLoadBtn.addEventListener("click", async () => {
   if (guests.length > 0) return;
-  seedBtn.disabled = true;
-  seedBtn.textContent = "Loading…";
+  emptyLoadBtn.disabled = true;
+  emptyLoadBtn.textContent = "Loading…";
   try {
     const batch = writeBatch(db);
     GUESTS_SEED.forEach((g) => {
@@ -335,7 +356,20 @@ seedBtn.addEventListener("click", async () => {
     await batch.commit();
   } catch (err) {
     showError("Couldn't load the starter list (" + err.code + ").");
-    seedBtn.disabled = false;
-    seedBtn.textContent = "Load starter list";
+    emptyLoadBtn.disabled = false;
+    emptyLoadBtn.textContent = "Load starter list · 57 guests";
   }
+});
+
+// ── Skip straight to manual entry from the empty state ──────────────────
+emptyManualBtn.addEventListener("click", () => {
+  manualEntryMode = true;
+  renderAll();
+  newNameInput.focus();
+});
+
+// ── Toolbar shortcut: jump to the add-guest row ──────────────────────────
+toolbarAddBtn.addEventListener("click", () => {
+  document.getElementById("add-row").scrollIntoView({ behavior: "smooth", block: "center" });
+  newNameInput.focus();
 });
