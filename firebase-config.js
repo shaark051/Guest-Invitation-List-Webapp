@@ -10,15 +10,15 @@
 // These values are safe to expose in client-side code — Firebase's real
 // security boundary is the rules file, not this config object.
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCuexcR7Fc-H-H2bOR6TnVcGQU5XS_OGnY",
-  authDomain: "bill-splitter-tracker.firebaseapp.com",
-  databaseURL: "https://bill-splitter-tracker-default-rtdb.firebaseio.com",
-  projectId: "bill-splitter-tracker",
-  storageBucket: "bill-splitter-tracker.firebasestorage.app",
-  messagingSenderId: "961216833885",
-  appId: "1:961216833885:web:92447ce7bf81ddd377a0b4",
-  measurementId: "G-H8CT2B3L2L"
+  apiKey: "AIzaSyDeVFEiDJc9-qVnpOPEqaZ0lEyMxkbRw6o",
+  authDomain: "guest-invitation-list.firebaseapp.com",
+  projectId: "guest-invitation-list",
+  storageBucket: "guest-invitation-list.firebasestorage.app",
+  messagingSenderId: "933420062418",
+  appId: "1:933420062418:web:f5b60a963cf13863ddff0b",
+  measurementId: "G-LX2BZKJ39H"
 };
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
