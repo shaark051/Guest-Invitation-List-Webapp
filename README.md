@@ -1,5 +1,7 @@
 # Guest Ledger
 
+# Access: https://guest-invitation-list-webapp.sharierarko-business.workers.dev/
+
 A live, shared guest list for planning an event — invite tracking and RSVP
 status for every guest, synced in real time, with no build step and no
 server to run.
