@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guest Ledger</title>
+  <meta name="description" content="A live, shared guest list — track invitations and RSVPs in one place." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="ledger-header">
+    <div class="header-inner">
+      <h1 class="title">Guest Ledger</h1>
+      <input
+        id="event-name"
+        class="event-name-input"
+        type="text"
+        placeholder="Name this event…"
+        autocomplete="off"
+      />
+      <span id="sync-indicator" class="sync-indicator" data-state="connecting">
+        <span class="dot"></span> Connecting…
+      </span>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section class="tally" aria-label="Guest summary">
+      <div class="tally-item">
+        <span class="tally-number" id="tally-total">0</span>
+        <span class="tally-label">on the list</span>
+      </div>
+      <div class="tally-item">
+        <span class="tally-number" id="tally-invited">0</span>
+        <span class="tally-label">invited</span>
+      </div>
+      <div class="tally-item tally-accepted">
+        <span class="tally-number" id="tally-accepted">0</span>
+        <span class="tally-label">accepted</span>
+      </div>
+      <div class="tally-item tally-declined">
+        <span class="tally-number" id="tally-declined">0</span>
+        <span class="tally-label">declined</span>
+      </div>
+      <div class="tally-item tally-awaiting">
+        <span class="tally-number" id="tally-awaiting">0</span>
+        <span class="tally-label">awaiting reply</span>
+      </div>
+    </section>
+
+    <section id="seed-banner" class="seed-banner" hidden>
+      <p>This ledger is empty. Load the 57 guests from your original spreadsheet to get started, or add people one at a time below.</p>
+      <button id="seed-btn" class="btn btn-primary" type="button">Load starter list</button>
+    </section>
+
+    <section id="error-banner" class="error-banner" hidden></section>
+
+    <section class="toolbar">
+      <input
+        id="search-input"
+        class="search-input"
+        type="search"
+        placeholder="Search guests…"
+        autocomplete="off"
+      />
+      <select id="house-filter" class="filter-select" aria-label="Filter by house">
+        <option value="all">All houses</option>
+      </select>
+      <select id="status-filter" class="filter-select" aria-label="Filter by RSVP status">
+        <option value="all">All statuses</option>
+        <option value="Accepted">Accepted</option>
+        <option value="Declined">Declined</option>
+        <option value="Awaiting response">Awaiting response</option>
+        <option value="none">No response yet</option>
+      </select>
+    </section>
+
+    <div class="table-scroll">
+      <table class="ledger-table">
+        <thead>
+          <tr>
+            <th class="col-no">No.</th>
+            <th class="col-name">Name</th>
+            <th class="col-house">House</th>
+            <th class="col-contact">Contact</th>
+            <th class="col-invited">Invited</th>
+            <th class="col-status">Status</th>
+            <th class="col-notes">Notes</th>
+            <th class="col-actions"></th>
+          </tr>
+        </thead>
+        <tbody id="guest-rows">
+          <!-- rows rendered by app.js -->
+        </tbody>
+        <tfoot>
+          <tr id="add-row">
+            <td class="col-no">
+              <span id="next-no">—</span>
+            </td>
+            <td class="col-name">
+              <input id="new-name" class="cell-input" type="text" placeholder="Add a guest…" autocomplete="off" />
+            </td>
+            <td class="col-house">
+              <input id="new-house" class="cell-input house-input" type="text" placeholder="House" autocomplete="off" />
+            </td>
+            <td class="col-contact">
+              <input id="new-contact" class="cell-input mono-input" type="text" placeholder="Number" autocomplete="off" />
+            </td>
+            <td class="col-invited"></td>
+            <td class="col-status"></td>
+            <td class="col-notes">
+              <input id="new-notes" class="cell-input" type="text" placeholder="Note" autocomplete="off" />
+            </td>
+            <td class="col-actions">
+              <button id="add-btn" class="btn btn-add" type="button" title="Add guest">Add</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p id="empty-state" class="empty-state" hidden>No entries match — try adjusting the search or filters.</p>
+
+  </main>
+
+  <footer class="page-footer">
+    <p>Synced live with Firebase · a static site, no server required</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
