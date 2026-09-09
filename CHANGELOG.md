@@ -2,6 +2,18 @@
 
 All notable changes to Guest Ledger are documented in this file.
 
+## [2.0.0] - 2026-09-09
+
+### Changed
+- Complete visual redesign: replaced the parchment/ledger theme (green, cream, beige) with a clean white/blue/grey system inspired by Apple's design language
+- Swapped Fraunces (serif) and IBM Plex Mono for a single system font stack (`-apple-system` / SF Pro, falling back to Inter)
+- Header is now a sticky, frosted-glass translucent bar instead of a solid green band with a texture overlay
+- Buttons are now blue pill-shaped primary actions with grey secondary/ghost styling, matching Apple's CTA pattern
+- Status pills (Accepted / Declined / Awaiting) now use Apple's system colors — green, red, orange
+- Table numerals use tabular figures on the system font instead of a monospace typeface
+- Logo mark redesigned as a small rounded-square app icon with a checklist glyph, replacing the wax-seal circle
+- Renamed internal layout classes (`.desk` → `.app-shell`, `.page-sheet` → `.surface-panel`) to match the new visual language
+
 ## [1.1.0] - 2026-09-06
 
 ### Added

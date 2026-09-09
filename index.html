@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
@@ -19,7 +19,13 @@
   <header class="ledger-header">
     <div class="header-inner">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="7" x2="20" y2="7"/>
+            <line x1="4" y1="12" x2="16" y2="12"/>
+            <line x1="4" y1="17" x2="12" y2="17"/>
+          </svg>
+        </span>
         <h1 class="title">Guest Ledger</h1>
       </div>
       <input
@@ -35,8 +41,8 @@
     </div>
   </header>
 
-  <main class="desk">
-    <div class="page-sheet">
+  <main class="app-shell">
+    <div class="surface-panel">
 
       <section id="error-banner" class="error-banner" hidden></section>
 
