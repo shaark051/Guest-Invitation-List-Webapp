@@ -2,6 +2,11 @@
 
 All notable changes to Guest Ledger are documented in this file.
 
+## [2.1.2] - 2026-09-16
+
+### Changed
+- Reordered the tally strip to: on the list, invited, accepted, awaiting reply, uncertain, declined
+
 ## [2.1.1] - 2026-09-16
 
 ### Fixed
