@@ -228,6 +228,7 @@ body {
 .tally-accepted .tally-number { color: var(--green); }
 .tally-declined .tally-number { color: var(--red); }
 .tally-awaiting .tally-number { color: var(--orange); }
+.tally-uncertain .tally-number { color: var(--indigo); }
 
 .tally-label {
   font-family: var(--font-body);
@@ -432,6 +433,16 @@ body {
 .status-select[data-value="Declined"] { background: var(--red); color: #fff; }
 .status-select[data-value="Awaiting response"] { background: var(--orange); color: #fff; }
 .status-select[data-value="Uncertain"] { background: var(--indigo); color: #fff; }
+
+/* The colors above are meant only for the closed pill. Without this, the
+   open dropdown list inherits that same background/text color for every
+   option, making the whole menu look like one solid color. Reset options
+   back to normal so the open list stays readable. */
+.status-select option {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+}
 
 .status-select:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
 

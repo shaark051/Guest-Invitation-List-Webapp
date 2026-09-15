@@ -47,6 +47,7 @@ const tallyEls = {
   accepted: document.getElementById("tally-accepted"),
   declined: document.getElementById("tally-declined"),
   awaiting: document.getElementById("tally-awaiting"),
+  uncertain: document.getElementById("tally-uncertain"),
 };
 
 // ── State ───────────────────────────────────────────────────────────────
@@ -142,12 +143,14 @@ function renderTally() {
   const accepted = guests.filter((g) => g.status === "Accepted").length;
   const declined = guests.filter((g) => g.status === "Declined").length;
   const awaiting = guests.filter((g) => g.status === "Awaiting response").length;
+  const uncertain = guests.filter((g) => g.status === "Uncertain").length;
 
   tallyEls.total.textContent = total;
   tallyEls.invited.textContent = invited;
   tallyEls.accepted.textContent = accepted;
   tallyEls.declined.textContent = declined;
   tallyEls.awaiting.textContent = awaiting;
+  tallyEls.uncertain.textContent = uncertain;
 }
 
 function renderHouseFilterOptions() {

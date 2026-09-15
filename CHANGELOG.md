@@ -2,6 +2,12 @@
 
 All notable changes to Guest Ledger are documented in this file.
 
+## [2.1.1] - 2026-09-16
+
+### Fixed
+- "Uncertain" status wasn't counted anywhere in the tally strip — added its own indigo-colored counter alongside accepted/declined/awaiting
+- Status dropdown showed every option in the same solid color when opened, because the pill's background/text color was being inherited by the whole option list. The closed pill still shows its status color; the open list now stays readable.
+
 ## [2.1.0] - 2026-09-16
 
 ### Added
