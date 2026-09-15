@@ -28,19 +28,24 @@ Auth for the backend · deployed as a static site on
 - A running tally of totals, invited, accepted, declined, and awaiting reply.
 - An editable event name/title, also stored in Firestore.
 - A one-time "Load starter list" button that imports the original 57 guests
-  from `guests-seed.js` — safe to ignore if you're starting from scratch.
+  from `src/js/guests-seed.js` — safe to ignore if you're starting from scratch.
 
 ## Project structure
 
 ```
-guest-list-app/
+guest-ledger/
 ├── index.html          # page structure
-├── style.css            # all styling (no CSS framework)
-├── app.js                # app logic + Firestore reads/writes
-├── firebase-config.js   # your Firebase project keys go here
-├── guests-seed.js       # the original 57 guests, for the starter-list import
-├── firestore.rules      # security rules to paste into Firebase
-└── README.md
+├── package.json        # package metadata & scripts
+├── firestore.rules     # security rules to paste into Firebase
+├── CHANGELOG.md        # version history
+├── README.md           # documentation
+└── src/
+    ├── css/
+    │   └── style.css   # all styling (no CSS framework)
+    └── js/
+        ├── app.js             # app logic + Firestore reads/writes
+        ├── firebase-config.js # your Firebase project keys go here
+        └── guests-seed.js     # original 57 guests, for starter-list import
 ```
 
 ## 1. Set up Firebase
@@ -51,7 +56,7 @@ guest-list-app/
    a web app. Skip Firebase Hosting when prompted — you're using Cloudflare
    Pages instead.
 3. Copy the `firebaseConfig` object it shows you, and paste the values into
-   `firebase-config.js` in this project.
+   `src/js/firebase-config.js` in this project.
 4. In the left sidebar:
    - **Build → Firestore Database → Create database** — choose *production
      mode* and any nearby region.
@@ -68,9 +73,9 @@ Because the app uses ES module imports, opening `index.html` directly
 (`file://`) won't work — serve it over HTTP:
 
 ```bash
-cd guest-list-app
-python3 -m http.server 8000
-# then open http://localhost:8000
+npm start
+# or: python3 -m http.server 8000
+# then open http://localhost:3000 (or http://localhost:8000)
 ```
 
 Any static server works — VS Code's "Live Server" extension, `npx serve`,
@@ -105,7 +110,7 @@ random bots hitting the database directly, not a real password. For a
 guest list shared only with people you trust, that's usually enough. If you
 want to restrict *writing* to just the organizers:
 
-1. Switch `signInAnonymously` in `app.js` for Google sign-in
+1. Switch `signInAnonymously` in `src/js/app.js` for Google sign-in
    (`GoogleAuthProvider` + `signInWithPopup`).
 2. In `firestore.rules`, restrict writes to specific accounts:
 
