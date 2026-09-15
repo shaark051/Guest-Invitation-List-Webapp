@@ -96,14 +96,15 @@
             placeholder="Search guests…"
             autocomplete="off"
           />
-          <select id="house-filter" class="filter-select" aria-label="Filter by house">
-            <option value="all">All houses</option>
+          <select id="house-filter" class="filter-select" aria-label="Filter by category">
+            <option value="all">All categories</option>
           </select>
           <select id="status-filter" class="filter-select" aria-label="Filter by RSVP status">
             <option value="all">All statuses</option>
             <option value="Accepted">Accepted</option>
             <option value="Declined">Declined</option>
             <option value="Awaiting response">Awaiting response</option>
+            <option value="Uncertain">Uncertain</option>
             <option value="none">No response yet</option>
           </select>
           <button id="toolbar-add-btn" class="btn btn-primary btn-icon" type="button">
@@ -118,7 +119,7 @@
               <tr>
                 <th class="col-no">No.</th>
                 <th class="col-name">Name</th>
-                <th class="col-house">House</th>
+                <th class="col-house">Category</th>
                 <th class="col-contact">Contact</th>
                 <th class="col-invited">Invited</th>
                 <th class="col-status">Status</th>
@@ -138,7 +139,7 @@
                   <input id="new-name" class="cell-input" type="text" placeholder="Add a guest…" autocomplete="off" />
                 </td>
                 <td class="col-house">
-                  <input id="new-house" class="cell-input house-input" type="text" placeholder="House" autocomplete="off" />
+                  <input id="new-house" class="cell-input house-input" type="text" placeholder="Category" autocomplete="off" />
                 </td>
                 <td class="col-contact">
                   <input id="new-contact" class="cell-input mono-input" type="text" placeholder="Number" autocomplete="off" />

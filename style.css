@@ -17,6 +17,7 @@
   --red: #ff3b30;
   --red-dark: #d70015;
   --orange: #ff9500;
+  --indigo: #5856d6;
 
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
     "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -430,6 +431,7 @@ body {
 .status-select[data-value="Accepted"] { background: var(--green); color: #fff; }
 .status-select[data-value="Declined"] { background: var(--red); color: #fff; }
 .status-select[data-value="Awaiting response"] { background: var(--orange); color: #fff; }
+.status-select[data-value="Uncertain"] { background: var(--indigo); color: #fff; }
 
 .status-select:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
 

@@ -2,6 +2,14 @@
 
 All notable changes to Guest Ledger are documented in this file.
 
+## [2.1.0] - 2026-09-16
+
+### Added
+- "Uncertain" RSVP status option, alongside Accepted / Declined / Awaiting response, with its own indigo status pill
+
+### Changed
+- Renamed the "House" column and filter to "Category" throughout the UI ("All houses" → "All categories", column header, add-row placeholder). The underlying Firestore field is still named `house`, so no existing guest data needed to change.
+
 ## [2.0.0] - 2026-09-09
 
 ### Changed

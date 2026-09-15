@@ -156,7 +156,7 @@ function renderHouseFilterOptions() {
     new Set(guests.map((g) => (g.house || "").trim()).filter(Boolean))
   ).sort();
 
-  houseFilter.innerHTML = '<option value="all">All houses</option>';
+  houseFilter.innerHTML = '<option value="all">All categories</option>';
   houses.forEach((h) => {
     const opt = document.createElement("option");
     opt.value = h;
@@ -217,6 +217,7 @@ function buildRow(g) {
         <option value="Accepted" ${g.status === "Accepted" ? "selected" : ""}>Accepted</option>
         <option value="Declined" ${g.status === "Declined" ? "selected" : ""}>Declined</option>
         <option value="Awaiting response" ${g.status === "Awaiting response" ? "selected" : ""}>Awaiting response</option>
+        <option value="Uncertain" ${g.status === "Uncertain" ? "selected" : ""}>Uncertain</option>
       </select>
     </td>
     <td><input class="cell-input notes-input" data-field="notes" value="${escapeAttr(g.notes)}" placeholder="Add a note" /></td>
