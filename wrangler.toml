@@ -1,0 +1,5 @@
+name = "guest-ledger-webapp"
+compatibility_date = "2024-09-16"
+
+[assets]
+directory = "."
