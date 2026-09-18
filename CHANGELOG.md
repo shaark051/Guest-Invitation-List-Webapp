@@ -7,8 +7,13 @@ All notable changes to Guest Ledger are documented in this file.
 ### Added
 - Contextual `aria-label` attributes to event title, search input, new guest inputs, and dynamic guest row controls (`name`, `category`, `contact`, `invited`, `status`, `notes`, and delete button) for screen reader accessibility.
 
+### Changed
+- Performance: Debounced search input filtering (150ms) to eliminate full-table DOM re-renders on every keystroke.
+- Performance: Refactored tally calculation to compute all metrics in a single O(N) pass instead of 5 separate filter operations.
+- Performance: Cached category filter dropdown rendering to avoid unnecessary DOM option rebuilds when options remain unchanged.
+
 ### Fixed
-- Restored `wrangler.toml` build configuration for Cloudflare Workers deployments (`guest-ledger-webapp`).
+- Deployment: Re-added `wrangler.toml` for Cloudflare Workers static asset deployment compatibility.
 
 ## [2.1.2] - 2026-09-16
 
