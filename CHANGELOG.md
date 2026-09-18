@@ -2,6 +2,14 @@
 
 All notable changes to Guest Ledger are documented in this file.
 
+## [2.1.3] - 2026-09-18
+
+### Added
+- Contextual `aria-label` attributes to event title, search input, new guest inputs, and dynamic guest row controls (`name`, `category`, `contact`, `invited`, `status`, `notes`, and delete button) for screen reader accessibility.
+
+### Fixed
+- Restored `wrangler.toml` build configuration for Cloudflare Workers deployments (`guest-ledger-webapp`).
+
 ## [2.1.2] - 2026-09-16
 
 ### Changed
