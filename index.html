@@ -34,6 +34,7 @@
         type="text"
         placeholder="Name this event…"
         autocomplete="off"
+        aria-label="Event name"
       />
       <span id="sync-indicator" class="sync-indicator" data-state="connecting">
         <span class="dot"></span> Connecting…
@@ -99,6 +100,7 @@
             type="search"
             placeholder="Search guests…"
             autocomplete="off"
+            aria-label="Search guests"
           />
           <select id="house-filter" class="filter-select" aria-label="Filter by category">
             <option value="all">All categories</option>
@@ -140,18 +142,18 @@
                   <span id="next-no">—</span>
                 </td>
                 <td class="col-name">
-                  <input id="new-name" class="cell-input" type="text" placeholder="Add a guest…" autocomplete="off" />
+                  <input id="new-name" class="cell-input" type="text" placeholder="Add a guest…" autocomplete="off" aria-label="New guest name" />
                 </td>
                 <td class="col-house">
-                  <input id="new-house" class="cell-input house-input" type="text" placeholder="Category" autocomplete="off" />
+                  <input id="new-house" class="cell-input house-input" type="text" placeholder="Category" autocomplete="off" aria-label="New guest category" />
                 </td>
                 <td class="col-contact">
-                  <input id="new-contact" class="cell-input mono-input" type="text" placeholder="Number" autocomplete="off" />
+                  <input id="new-contact" class="cell-input mono-input" type="text" placeholder="Number" autocomplete="off" aria-label="New guest contact number" />
                 </td>
                 <td class="col-invited"></td>
                 <td class="col-status"></td>
                 <td class="col-notes">
-                  <input id="new-notes" class="cell-input" type="text" placeholder="Note" autocomplete="off" />
+                  <input id="new-notes" class="cell-input" type="text" placeholder="Note" autocomplete="off" aria-label="New guest note" />
                 </td>
                 <td class="col-actions">
                   <button id="add-btn" class="btn btn-add btn-icon" type="button" title="Add guest">
