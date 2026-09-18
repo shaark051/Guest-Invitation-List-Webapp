@@ -206,16 +206,18 @@ function buildRow(g) {
     lastChangedId = null;
   }
 
+  const guestLabel = g.name ? g.name : `guest #${g.no ?? ""}`;
+
   tr.innerHTML = `
     <td class="col-no">${g.no ?? ""}</td>
-    <td><input class="cell-input name-input" data-field="name" value="${escapeAttr(g.name)}" placeholder="Guest name" /></td>
-    <td><input class="cell-input house-input" data-field="house" value="${escapeAttr(g.house)}" placeholder="—" /></td>
-    <td><input class="cell-input contact-input" data-field="contact" value="${escapeAttr(g.contact)}" placeholder="Add number" /></td>
+    <td><input class="cell-input name-input" data-field="name" value="${escapeAttr(g.name)}" placeholder="Guest name" aria-label="Name for ${escapeAttr(guestLabel)}" /></td>
+    <td><input class="cell-input house-input" data-field="house" value="${escapeAttr(g.house)}" placeholder="—" aria-label="Category for ${escapeAttr(guestLabel)}" /></td>
+    <td><input class="cell-input contact-input" data-field="contact" value="${escapeAttr(g.contact)}" placeholder="Add number" aria-label="Contact number for ${escapeAttr(guestLabel)}" /></td>
     <td class="col-invited">
-      <input type="checkbox" class="invited-check" data-field="invited" ${g.invited ? "checked" : ""} title="Invitation sent" />
+      <input type="checkbox" class="invited-check" data-field="invited" ${g.invited ? "checked" : ""} title="Invitation sent" aria-label="Invitation sent for ${escapeAttr(guestLabel)}" />
     </td>
     <td>
-      <select class="status-select" data-field="status" data-value="${escapeAttr(g.status)}">
+      <select class="status-select" data-field="status" data-value="${escapeAttr(g.status)}" aria-label="RSVP status for ${escapeAttr(guestLabel)}">
         <option value="" ${!g.status ? "selected" : ""}>—</option>
         <option value="Accepted" ${g.status === "Accepted" ? "selected" : ""}>Accepted</option>
         <option value="Declined" ${g.status === "Declined" ? "selected" : ""}>Declined</option>
@@ -223,9 +225,9 @@ function buildRow(g) {
         <option value="Uncertain" ${g.status === "Uncertain" ? "selected" : ""}>Uncertain</option>
       </select>
     </td>
-    <td><input class="cell-input notes-input" data-field="notes" value="${escapeAttr(g.notes)}" placeholder="Add a note" /></td>
+    <td><input class="cell-input notes-input" data-field="notes" value="${escapeAttr(g.notes)}" placeholder="Add a note" aria-label="Notes for ${escapeAttr(guestLabel)}" /></td>
     <td class="col-actions">
-      <button class="delete-btn" title="Remove guest">
+      <button class="delete-btn" title="Remove guest" aria-label="Remove ${escapeAttr(guestLabel)}">
         <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path></svg>
       </button>
     </td>
