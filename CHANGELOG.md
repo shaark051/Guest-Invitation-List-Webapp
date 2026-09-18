@@ -2,6 +2,16 @@
 
 All notable changes to Guest Ledger are documented in this file.
 
+## [2.1.3] - 2026-09-18
+
+### Changed
+- Performance: Debounced search input filtering (150ms) to eliminate full-table DOM re-renders on every keystroke.
+- Performance: Refactored tally calculation to compute all metrics in a single O(N) pass instead of 5 separate filter operations.
+- Performance: Cached category filter dropdown rendering to avoid unnecessary DOM option rebuilds when options remain unchanged.
+
+### Fixed
+- Deployment: Re-added `wrangler.toml` for Cloudflare Workers static asset deployment compatibility.
+
 ## [2.1.2] - 2026-09-16
 
 ### Changed
