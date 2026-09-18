@@ -4,9 +4,6 @@ All notable changes to Guest Ledger are documented in this file.
 
 ## [2.1.3] - 2026-09-18
 
-### Added
-- Contextual `aria-label` attributes to event title, search input, new guest inputs, and dynamic guest row controls (`name`, `category`, `contact`, `invited`, `status`, `notes`, and delete button) for screen reader accessibility.
-
 ### Changed
 - Performance: Debounced search input filtering (150ms) to eliminate full-table DOM re-renders on every keystroke.
 - Performance: Refactored tally calculation to compute all metrics in a single O(N) pass instead of 5 separate filter operations.
