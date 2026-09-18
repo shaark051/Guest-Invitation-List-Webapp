@@ -137,13 +137,34 @@ function renderAll() {
   nextNoLabel.textContent = nextNo();
 }
 
+// Performance optimization: Calculate all tally metrics in a single O(N) pass
+// instead of 5 separate .filter() iterations and array allocations.
 function renderTally() {
   const total = guests.length;
-  const invited = guests.filter((g) => g.invited).length;
-  const accepted = guests.filter((g) => g.status === "Accepted").length;
-  const declined = guests.filter((g) => g.status === "Declined").length;
-  const awaiting = guests.filter((g) => g.status === "Awaiting response").length;
-  const uncertain = guests.filter((g) => g.status === "Uncertain").length;
+  let invited = 0;
+  let accepted = 0;
+  let declined = 0;
+  let awaiting = 0;
+  let uncertain = 0;
+
+  for (let i = 0; i < total; i++) {
+    const g = guests[i];
+    if (g.invited) invited++;
+    switch (g.status) {
+      case "Accepted":
+        accepted++;
+        break;
+      case "Declined":
+        declined++;
+        break;
+      case "Awaiting response":
+        awaiting++;
+        break;
+      case "Uncertain":
+        uncertain++;
+        break;
+    }
+  }
 
   tallyEls.total.textContent = total;
   tallyEls.invited.textContent = invited;
@@ -153,12 +174,22 @@ function renderTally() {
   tallyEls.uncertain.textContent = uncertain;
 }
 
+let cachedHousesKey = null;
+
 function renderHouseFilterOptions() {
   const current = houseFilter.value;
   const houses = Array.from(
     new Set(guests.map((g) => (g.house || "").trim()).filter(Boolean))
   ).sort();
+  const housesKey = houses.join("\0");
 
+  // Performance optimization: Skip DOM rebuild if the house categories haven't changed
+  if (housesKey === cachedHousesKey && houseFilter.options.length === houses.length + 1) {
+    if (houses.includes(current)) houseFilter.value = current;
+    return;
+  }
+
+  cachedHousesKey = housesKey;
   houseFilter.innerHTML = '<option value="all">All categories</option>';
   houses.forEach((h) => {
     const opt = document.createElement("option");
@@ -322,11 +353,25 @@ addBtn.addEventListener("click", addGuest);
   });
 });
 
+// Performance optimization: Debounce function to prevent unnecessary rapid calls
+function debounce(fn, delay = 150) {
+  let timeoutId;
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), delay);
+  };
+}
+
 // ── Filters ─────────────────────────────────────────────────────────────
-searchInput.addEventListener("input", (e) => {
-  filters.search = e.target.value;
-  renderRows();
-});
+// Performance optimization: Debounce search input to prevent full table
+// DOM re-renders and element creation on every single keystroke.
+searchInput.addEventListener(
+  "input",
+  debounce((e) => {
+    filters.search = e.target.value;
+    renderRows();
+  }, 150)
+);
 
 houseFilter.addEventListener("change", (e) => {
   filters.house = e.target.value;
